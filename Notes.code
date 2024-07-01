@@ -1,0 +1,5 @@
+nex.config.mjs-> url ,features we use That Will Be Defined 
+
+import ## '../../../components/*.js' => '@components/*.js' search in src directory
+
+App ROute Allowss us To easily Navigate Pages using app directory 
