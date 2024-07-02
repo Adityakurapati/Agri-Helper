@@ -1,5 +1,21 @@
+#### Next Js 1 💥 ####
 nex.config.mjs-> url ,features we use That Will Be Defined 
 
 import ## '../../../components/*.js' => '@components/*.js' search in src directory
 
 App ROute Allowss us To easily Navigate Pages using app directory 
+(auth) folder shouldnt need to access by nexted routes ❌/auth/login 👉/login directly can be accessed
+
+layout.jsx = whaterver  we write that will be shown to every page(Layout component in React, Only Our COntent Chnages  ➡ {children} ) ⭐common components Using Layout
+
+suggests to include only api Routes/pages IN app dir
+src => libraries ,auth configs
+if component ❌page.jsx , if page then needed
+Link component will fetch component before we click so renders Faster
+
+got issue -> error.jsx mut be client Component
+
+module.css = to prevent confusion bw global css and 
+
+using <img srv='' /> it will not optimize so it has slow LCP,high bandwidth=> nextjs Image <Image src=''/> 
+It Caches image 1st for optimizing image for different sizes

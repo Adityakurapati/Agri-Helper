@@ -1,0 +1,13 @@
+.container {
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        padding: auto .8rem;
+        align-items: center;
+        background-color: var(--bg);
+}
+
+.container>p {
+        font-size: 2rem;
+        font-weight: bolder;
+}
