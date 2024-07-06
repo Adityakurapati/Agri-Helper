@@ -3,6 +3,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import styles from './singlepost.module.css';
 import Image from 'next/image';
 import PostUser from '@/components/postUser/postUser';
+import { getPost } from '@/lib/data';
 
 const SinglePostPage=( { params } ) =>
 {
@@ -11,28 +12,11 @@ const SinglePostPage=( { params } ) =>
         const [ loading, setLoading ]=useState( true );
         const [ error, setError ]=useState( null );
 
-        useEffect( () =>
+        useEffect( async () =>
         {
-                const fetchPosts=async () =>
-                {
-                        try
-                        {
-                                const res=await fetch( `https://jsonplaceholder.typicode.com/posts/${ slug }`, );
-                                if ( !res.ok )
-                                {
-                                        throw new Error( "Server Load Error" );
-                                }
-                                const data=await res.json();
-                                setPosts( data );
-                                setLoading( false );
-                        } catch ( err )
-                        {
-                                setError( err.message );
-                                setLoading( false );
-                        }
-                };
-
-                fetchPosts();
+                const post=await getPost( slug );
+                setPosts( post )
+                setLoading( false )
         }, [] );
 
         if ( loading )

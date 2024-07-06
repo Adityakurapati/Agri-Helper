@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import PostCard from '../postCard/postCard';
 import styles from './blog.module.css';
+import { getPosts } from '@/lib/data';
 
 const BlogPage=( { searchParams } ) =>
 {
@@ -16,17 +17,13 @@ const BlogPage=( { searchParams } ) =>
                 {
                         try
                         {
-                                const res=await fetch( 'https://jsonplaceholder.typicode.com/posts', { next: { revalidate: 3600 } } );
-                                if ( !res.ok )
-                                {
-                                        throw new Error( "Server Load Error" );
-                                }
-                                const data=await res.json();
-                                setPosts( data );
-                                setLoading( false );
-                        } catch ( err )
+                                const posts=await getPosts();
+                                setPosts( posts );
+                        } catch ( error )
                         {
-                                setError( err.message );
+                                setError( "Failed to load posts" );
+                        } finally
+                        {
                                 setLoading( false );
                         }
                 };

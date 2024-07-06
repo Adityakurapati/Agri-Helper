@@ -2,37 +2,33 @@
 
 import React, { useEffect, useState } from 'react';
 import styles from './postUser.module.css'; // Ensure the CSS module file exists
+import { getUser } from '@/lib/data';
 
 const PostUser=( { userId } ) =>
 {
-
-        const [ user, setUser ]=useState( {} );
+        const [ user, setUser ]=useState( null );
         const [ loading, setLoading ]=useState( true );
         const [ error, setError ]=useState( null );
 
         useEffect( () =>
         {
-                const fetchPosts=async () =>
+                const fetchUser=async () =>
                 {
                         try
                         {
-                                const res=await fetch( `https://jsonplaceholder.typicode.com/users/${ userId }`, );
-                                if ( !res.ok )
-                                {
-                                        throw new Error( "Server Load Error" );
-                                }
-                                const data=await res.json();
-                                setUser( data );
-                                setLoading( false );
-                        } catch ( err )
+                                const user=await getUser( { id: userId } );
+                                setUser( user );
+                        } catch ( error )
                         {
-                                setError( err.message );
+                                setError( "Failed to load user" );
+                        } finally
+                        {
                                 setLoading( false );
                         }
                 };
 
-                fetchPosts();
-        }, [] );
+                fetchUser();
+        }, [ userId ] );
 
         if ( loading )
         {
@@ -43,8 +39,14 @@ const PostUser=( { userId } ) =>
         {
                 return <div>{ error }</div>;
         }
+
+        if ( !user )
+        {
+                return <div>User not found</div>;
+        }
+
         return (
-                <div className={ styles.container }>
+                <div className={ styles.detailedText }>
                         <span className={ styles.detailTitle }>Author</span>
                         <span className={ styles.detailValue }>{ user.name }</span>
                 </div>
