@@ -5,17 +5,23 @@ import styles from './contact.module.css';
 import Image from 'next/image';
 
 // Dynamically import the HydrationTest component
-const HydrationTestNOSSR=dynamic( () => import( '../../components/hydrationTest' ), { ssr: false } );
+// const HydrationTestNOSSR=dynamic( () => import( '../../components/hydrationTest' ), { ssr: false } );
 
 const ContactPage=() =>
 {
+        const a=Math.random();
+
         return (
                 <section className={ styles.container }>
                         <article className={ styles.imgContainer }>
                                 <Image src='/contact.png' alt='about' fill className={ styles.img } />
                         </article>
                         <article className={ styles.formContainer }>
-                                <HydrationTestNOSSR />
+                                {/* <HydrationTestNOSSR />
+                                 */}
+                                <div suppressHydrationWarning>
+                                        { a }
+                                </div>
                                 <form className={ styles.contactForm }>
                                         <input type='text' placeholder='Name And Surname' required />
                                         <input type='email' placeholder='Email' required />

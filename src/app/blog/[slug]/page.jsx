@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './singlepost.module.css';
 import Image from 'next/image';
 
-const SinglePostPage=() =>
+const SinglePostPage=( { params } ) =>
 {
+        console.log( params )
         return (
                 <section className={ styles.container }>
                         <article className={ styles.imgContainer }>
