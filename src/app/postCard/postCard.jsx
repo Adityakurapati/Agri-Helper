@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import styles from './postCard.module.css';
 
-const PostCard=() =>
+const PostCard=( { post } ) =>
 {
         return (
                 <section className={ styles.container }>
@@ -14,9 +14,9 @@ const PostCard=() =>
                                 <span className={ styles.date }>10.7.24</span>
                         </article>
                         <article className={ styles.bottom }>
-                                <h1 className={ styles.title }>Title</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quasi?</p>
-                                <Link href='/blog/post' className={ styles.readmorebtn }>Read More</Link>
+                                <h1 className={ styles.title }>{ post.title }</h1>
+                                <p>{ post.body }</p>
+                                <Link href={ `/blog/${ post.id }` } className={ styles.readmorebtn }>Read More</Link>
                         </article>
                 </section>
         );

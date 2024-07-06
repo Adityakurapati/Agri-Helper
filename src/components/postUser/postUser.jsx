@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import PostCard from '../postCard/postCard';
-import styles from './blog.module.css';
+import styles from './postUser.module.css'; // Ensure the CSS module file exists
 
-const BlogPage=( { searchParams } ) =>
+const PostUser=( { userId } ) =>
 {
-        const [ posts, setPosts ]=useState( [] );
+
+        const [ user, setUser ]=useState( {} );
         const [ loading, setLoading ]=useState( true );
         const [ error, setError ]=useState( null );
 
@@ -16,13 +16,13 @@ const BlogPage=( { searchParams } ) =>
                 {
                         try
                         {
-                                const res=await fetch( 'https://jsonplaceholder.typicode.com/posts', { next: { revalidate: 3600 } } );
+                                const res=await fetch( `https://jsonplaceholder.typicode.com/users/${ userId }`, );
                                 if ( !res.ok )
                                 {
                                         throw new Error( "Server Load Error" );
                                 }
                                 const data=await res.json();
-                                setPosts( data );
+                                setUser( data );
                                 setLoading( false );
                         } catch ( err )
                         {
@@ -43,16 +43,12 @@ const BlogPage=( { searchParams } ) =>
         {
                 return <div>{ error }</div>;
         }
-
         return (
-                <section className={ styles.container }>
-                        { posts.map( post => (
-                                <div className={ styles.post } key={ post.id }>
-                                        <PostCard post={ post } />
-                                </div>
-                        ) ) }
-                </section>
+                <div className={ styles.container }>
+                        <span className={ styles.detailTitle }>Author</span>
+                        <span className={ styles.detailValue }>{ user.name }</span>
+                </div>
         );
-};
+}
 
-export default BlogPage;
+export default PostUser;
