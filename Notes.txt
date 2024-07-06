@@ -19,3 +19,26 @@ module.css = to prevent confusion bw global css and
 
 using <img srv='' /> it will not optimize so it has slow LCP,high bandwidth=> nextjs Image <Image src=''/> 
 It Caches image 1st for optimizing image for different sizes
+
+
+
+Next Js Doesnt Allow External Url -> next.config.mjs add remotePatterns
+
+
+2types for Rendering-SSR and CSR
+
+when request from user id Made At That Time Browser Page Is Empty -> server creates html file and send it in response 
+server takes this request
+
+SSR html is not interactive , Browser has to download Js file
+waiting for interactivity from server
+
+CSR - empty html and Js Bundle That will Build web From scratch 
+as soon as page is ready , we will interact
+
+React -default rendering on client side Only
+
+In Next We CAn combine server and client side components
+-> use client directive on top of component to make it as clinet component
+
+initial load for client component even at server

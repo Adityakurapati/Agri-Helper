@@ -1,0 +1,55 @@
+.container {
+        display: flex;
+        gap: 2rem;
+}
+
+.textContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+}
+
+.title {
+        color: var(--btn)
+}
+
+.heading {
+        font-size: 3.2rem;
+        font-weight: bolder;
+
+}
+
+.description {
+        font-size: 20px;
+        font-weight: 300;
+}
+
+.boxes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        place-items: center;
+}
+
+.box h1 {
+        color: var(--btn)
+}
+
+
+.imgContainer {
+        flex: 1;
+        position: relative;
+        width: 100%;
+        height: 500px;
+}
+
+.img {
+        object-fit: contain;
+}
+
+
+@media screen and (max-width:380px) {
+        .container {
+                flex-direction: column;
+        }
+}
