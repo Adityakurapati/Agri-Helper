@@ -13,11 +13,7 @@ const connectToDB=async () =>
                 } else
                 {
                         const db=await mongoose.connect(
-                                'mongodb+srv://champ:champ@cluster0.cfmhwiy.mongodb.net/Safire?retryWrites=true&w=majority&appName=Cluster0',
-                                {
-                                        useNewUrlParser: true,
-                                        useUnifiedTopology: true,
-                                }
+                                'mongodb+srv://champ:champ@cluster0.cfmhwiy.mongodb.net/Safire?retryWrites=true&w=majority&appName=Cluster0'
                         );
                         console.log( "Connected To Mongo DB Successfully" );
                         connection.isConnected=db.connections[ 0 ].readyState;

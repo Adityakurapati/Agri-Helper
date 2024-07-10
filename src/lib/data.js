@@ -1,6 +1,6 @@
 import { UserModel, PostModel } from './model';
 import { connectToDB } from './utils';
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';   //It is not stable Now 
 const getPosts=async () =>
 {
         try
@@ -30,6 +30,7 @@ const getPost=async ( { slug } ) =>
 
 const getUser=async ( { id } ) =>
 {
+        noStore()
         try
         {
                 await connectToDB();

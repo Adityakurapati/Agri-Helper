@@ -1,11 +1,14 @@
-'use client'
-
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import styles from './contact.module.css';
 import Image from 'next/image';
 
 // Dynamically import the HydrationTest component
-// const HydrationTestNOSSR=dynamic( () => import( '../../components/hydrationTest' ), { ssr: false } );
+// const HydrationTestNOSSR=dynamic( () => import( '../../components/hydrationTest' ), { ssr: true } );
+
+export const metadata={
+        title: "Contact Page",
+        description: "Contact Description"
+};
 
 const ContactPage=() =>
 {
@@ -17,11 +20,6 @@ const ContactPage=() =>
                                 <Image src='/contact.png' alt='about' fill className={ styles.img } />
                         </article>
                         <article className={ styles.formContainer }>
-                                {/* <HydrationTestNOSSR />
-                                 */}
-                                {/* <div suppressHydrationWarning>
-                                        { a }
-                                </div> */}
                                 <form className={ styles.contactForm }>
                                         <input type='text' placeholder='Name And Surname' required />
                                         <input type='email' placeholder='Email' required />
@@ -33,5 +31,10 @@ const ContactPage=() =>
                 </section>
         );
 }
+
+// <HydrationTestNOSSR />
+// <div suppressHydrationWarning>
+// { a }
+// </div>
 
 export default ContactPage;
