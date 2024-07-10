@@ -19,5 +19,5 @@ const postSchema=new mongoose.Schema( {
         slug: { type: String, required: true, unique: true },
 }, { timestamps: true } );
 
-export const UserModel=mongoose.models.User||mongoose.model( 'User', userSchema );
-export const PostModel=mongoose.models.Post||mongoose.model( 'Post', postSchema );
+export const UserModel=mongoose.models?.User||mongoose.model( 'User', userSchema );
+export const PostModel=mongoose.models?.Post||mongoose.model( 'Post', postSchema );
