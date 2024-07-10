@@ -76,3 +76,6 @@ APi Data Gets Cached But for fetch we can specify {no-store} but for other Other
 *************************************SEO ******************************
 
 For Better SEO we given Dynamic title ,desc => metadata for each pages accordingly
+
+*************** Server Actions ***************
+'use server' directive ,and fn() should be async 
