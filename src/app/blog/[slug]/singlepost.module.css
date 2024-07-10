@@ -37,16 +37,6 @@
         object-fit: cover;
 }
 
-.detailedText {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-}
-
-.detailTitle {
-        font-weight: bold;
-        color: grey;
-}
 
 .textContainer p {
         font-size: 20px;

@@ -9,14 +9,14 @@ const PostCard=( { post } ) =>
                 <section className={ styles.container }>
                         <article className={ styles.top }>
                                 <div className={ styles.imgContainer }>
-                                        <Image src='/about.png' alt='' fill className={ styles.img } />
+                                        <Image src={ post.img } alt='' fill className={ styles.img } />
                                 </div>
                                 <span className={ styles.date }>10.7.24</span>
                         </article>
                         <article className={ styles.bottom }>
                                 <h1 className={ styles.title }>{ post.title }</h1>
-                                <p>{ post.body }</p>
-                                <Link href={ `/blog/${ post.id }` } className={ styles.readmorebtn }>Read More</Link>
+                                <p>{ post.desc }</p>
+                                <Link href={ `/blog/${ post.slug }` } className={ styles.readmorebtn }>Read More</Link>
                         </article>
                 </section>
         );

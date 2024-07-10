@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 const ContactPage=() =>
 {
-        const a=Math.random();
+        // const a=Math.random();
 
         return (
                 <section className={ styles.container }>
@@ -19,9 +19,9 @@ const ContactPage=() =>
                         <article className={ styles.formContainer }>
                                 {/* <HydrationTestNOSSR />
                                  */}
-                                <div suppressHydrationWarning>
+                                {/* <div suppressHydrationWarning>
                                         { a }
-                                </div>
+                                </div> */}
                                 <form className={ styles.contactForm }>
                                         <input type='text' placeholder='Name And Surname' required />
                                         <input type='email' placeholder='Email' required />

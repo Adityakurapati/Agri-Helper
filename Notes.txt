@@ -42,3 +42,32 @@ In Next We CAn combine server and client side components
 -> use client directive on top of component to make it as clinet component
 
 initial load for client component even at server
+
+when we wrap server component as client component it still willl be server component bcoz sometime we have wrap components with providers(auth,context)
+
+created clientSideProvider that gotwraped by entire application
+
+even if the some component wrapped with  client component , dont worry it is'n t clinent component
+
+*********** Navigation **************
+
+default Behaviour of Link is Prefetch Page ,but if more components are there Then we Can Disable That Functionality
+<Link href='/' prefetch={false} >Home </Link>
+
+router.push() => will add new Entry to Browser History Stack
+router.replace() => contain only 1 entry of given path
+usePathname shows url path not query of url
+
+Bydefault NextJs Caches The APi Responses
+in fetch('', {cachre:'force-cache'}) => fetch('', {cachre:'no-store'})
+
+if we update blogs every week then use cache and revalidate duration3600 secornds(1hr ) -it refresh the for every 1 hour 
+        const res=await fetch( 'https://jsonplaceholder.typicode.com/posts', { next: { revalidate: 3600 } } );
+
+***************************************************************
+/**** Getting Started WIth MongoDb **************'
+npm i mongoose@8.0.0 version
+
+problem - we using dev mode ,whenerver we refresh it makes new connection
+
+APi Data Gets Cached But for fetch we can specify {no-store} but for other Other APi How We do noStore() => unstable_noStore

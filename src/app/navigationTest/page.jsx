@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 const page=() =>
 {
+        // Client Side Navigation
         const router=useRouter();
         const search=useSearchParams();
         const handleClick=() =>

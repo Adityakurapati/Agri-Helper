@@ -1,55 +1,26 @@
-'use client'
+import PostCard from '../postCard/PostCard'  // Adjust this import based on how PostCard is exported
+import styles from './blog.module.css'
+import { getPosts } from '../../lib/data.js'
 
-import React, { useEffect, useState } from 'react';
-import PostCard from '../postCard/postCard';
-import styles from './blog.module.css';
-import { getPosts } from '@/lib/data';
-
-const BlogPage=( { searchParams } ) =>
+const BlogPage=async () =>
 {
-        const [ posts, setPosts ]=useState( [] );
-        const [ loading, setLoading ]=useState( true );
-        const [ error, setError ]=useState( null );
-
-        useEffect( () =>
+        try
         {
-                const fetchPosts=async () =>
-                {
-                        try
-                        {
-                                const posts=await getPosts();
-                                setPosts( posts );
-                        } catch ( error )
-                        {
-                                setError( "Failed to load posts" );
-                        } finally
-                        {
-                                setLoading( false );
-                        }
-                };
-
-                fetchPosts();
-        }, [] );
-
-        if ( loading )
+                const posts=await getPosts();
+                return (
+                        <section className={ styles.container }>
+                                { posts.map( ( post ) => (
+                                        <div className={ styles.post } key={ post._id }>
+                                                <PostCard post={ post } />
+                                        </div>
+                                ) ) }
+                        </section>
+                );
+        } catch ( error )
         {
-                return <div>Loading...</div>;
+                console.error( "Error fetching posts:", error );
+                return <div>Error loading posts. Please try again later.</div>;
         }
-
-        if ( error )
-        {
-                return <div>{ error }</div>;
-        }
-
-        return (
-                <section className={ styles.container }>
-                        { posts.map( post => (
-                                <div className={ styles.post } key={ post.id }>
-                                        <PostCard post={ post } />
-                                </div>
-                        ) ) }
-                </section>
-        );
 };
 
 export default BlogPage;

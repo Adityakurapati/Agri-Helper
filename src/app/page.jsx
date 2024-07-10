@@ -1,8 +1,9 @@
 import Image from "next/image";
 import styles from "./home.module.css";
-
-export default function Home ()
+import { insertData } from '../lib/data.js'
+export default async function Home ()
 {
+        // await insertData();
         return ( <main>
                 <section className={ styles.container }>
                         <article className={ styles.textContainer }>

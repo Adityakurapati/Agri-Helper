@@ -1,52 +1,38 @@
-'use client'
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import styles from './singlepost.module.css';
 import Image from 'next/image';
 import PostUser from '@/components/postUser/postUser';
-import { getPost } from '@/lib/data';
+import { getPost } from '../../../lib/data';
 
-const SinglePostPage=( { params } ) =>
+const SinglePostPage=async ( { params } ) =>
 {
         const { slug }=params;
-        const [ posts, setPosts ]=useState( [] );
-        const [ loading, setLoading ]=useState( true );
-        const [ error, setError ]=useState( null );
 
-        useEffect( async () =>
-        {
-                const post=await getPost( slug );
-                setPosts( post )
-                setLoading( false )
-        }, [] );
+        const post=await getPost( { slug } );
 
-        if ( loading )
+        if ( !post )
         {
-                return <div>Loading...</div>;
-        }
-
-        if ( error )
-        {
-                return <div>{ error }</div>;
+                return <div>Post not found</div>;
         }
 
         return (
                 <section className={ styles.container }>
                         <article className={ styles.imgContainer }>
-                                <Image src='/about.png' alt='About image' fill className={ styles.img } />
+                                <Image src='/post1.jpg' alt='About image' fill className={ styles.img } />
                         </article>
                         <article className={ styles.textContainer }>
-                                <h1 className={ styles.title }>{ posts.title }</h1>
+                                <h1 className={ styles.title }>{ post.title }</h1>
                                 <div className={ styles.detail }>
-                                        <Image src='/about.png' alt='User image' width={ 50 } height={ 50 } className={ styles.userimg } />
-                                        <Suspense fallback={ <div>Loading </div> }>
-                                                <PostUser userId={ posts.userId } />
+                                        <Image src={ post.img } alt='User image' width={ 50 } height={ 50 } className={ styles.userimg } />
+                                        <Suspense fallback={ <div>Loading...</div> }>
+                                                <PostUser userId={ post.userId } />
                                         </Suspense>
                                         <div className={ styles.detailedText }>
                                                 <span className={ styles.detailedTitle }>Published</span>
-                                                <span className={ styles.detailedValue }>12.34.2024</span>
+                                                <span className={ styles.detailedValue }>{ post.createdAt.toString().slice( 0, 16 ) }</span>
                                         </div>
                                 </div>
-                                <p>{ posts.body }</p>
+                                <p>{ post.desc }</p>
                         </article>
                 </section>
         );
