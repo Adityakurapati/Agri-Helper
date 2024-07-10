@@ -4,10 +4,30 @@ import Image from 'next/image';
 import PostUser from '@/components/postUser/postUser';
 import { getPost } from '../../../lib/data';
 
+
+const getData=async ( { slug } ) =>
+{
+        const post=await fetch( `http:localhost:3000/api/blog/${ slug }` )
+        if ( !post.ok )
+        {
+                throw new Error( "Unable to fetch Posts" )
+        }
+        return posts.json();
+}
+const deleteData=async ( { slug } ) =>
+{
+        const post=await fetch( `http:localhost:3000/api/blog/${ slug }`, { method: "DELETE" } )
+        if ( !post.ok )
+        {
+                throw new Error( "Unable to Delete Posts" )
+        }
+        return true;
+}
 export const generateMetadata=async ( { params } ) =>
 {
         const { slug }=params;
-        const post=await getPost( { slug } );
+        // const post=await getPost( { slug } );
+        const post=await getData( slug );
         return {
                 title: post.title,
                 description: post.desc

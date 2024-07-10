@@ -4,8 +4,8 @@ import Link from 'next/link';
 import styles from './links.module.css';
 import NavLink from './navLink/navLink';
 import Image from 'next/image';
-
-const Links=() =>
+import { handleGithubSignout } from '@/lib/actions';
+const Links=( { session } ) =>
 {
         const links=[
                 { title: "Home", path: "/" },
@@ -15,7 +15,7 @@ const Links=() =>
         ];
 
         const [ open, setOpen ]=useState( false );
-        const session=true;  // Temporary session state
+        // const session=true;  // Temporary session state
         const isAdmin=true;  // Temporary admin state
 
         return (
@@ -24,10 +24,12 @@ const Links=() =>
                                 { links.map( link => (
                                         <NavLink item={ link } key={ link.title } />
                                 ) ) }
-                                { session? (
+                                { session?.user? (
                                         <>
-                                                { isAdmin&&<NavLink item={ { title: 'Admin', path: '/admin' } } /> }
-                                                <NavLink item={ { title: 'Logout', path: '/logout' } } />
+                                                { session.user?.isAdmin&&<NavLink item={ { title: 'Admin', path: '/admin' } } /> }
+                                                <form action={ handleGithubSignout }>
+                                                        <button type='submit' >Logout</button>
+                                                </form>
                                         </>
                                 ):(
                                         <button className={ styles.submit_btn }>Login</button>

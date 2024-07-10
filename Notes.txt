@@ -79,3 +79,18 @@ For Better SEO we given Dynamic title ,desc => metadata for each pages according
 
 *************** Server Actions ***************
 'use server' directive ,and fn() should be async 
+for actione call it makes POST Request and payload => actionId
+
+use Api ROutes If Complex Operations are required otherwise we can use server actions;
+
+****************** Api Routes ***********************************
+To allow user to make request and response to it we make router.js under / api
+
+********************* Auth **************************
+Before v14 we use Api ROutes and Wrap the application with Auth Provider
+Github -> Developer Settings -> Oauth Apps => register
+
+/api/auth/[...nextauth] =>login.js /logout.js /error.js handle all this endpoints by nextauth.js
+NExtAuth Handle all= Session ,cookies ,tokens
+
+session can be used in server components but useStatte we are using in the Navbar so moving session to server component 
