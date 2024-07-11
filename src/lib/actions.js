@@ -1,10 +1,8 @@
-// src/lib/actions.js
-
 'use server';
 import { PostModel, UserModel } from './model';
 import { connectToDB } from './utils';
 import { signIn, signOut } from './auth';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export const addPost=async ( formData ) =>
 {
@@ -37,47 +35,63 @@ export const handleGithubSignout=async () =>
 {
         await signOut();
 };
-export const registerUser=async ( formData ) =>
+
+export const register=async ( previousState, formData ) =>
 {
-        const { username, email, password, repeatPassword }=Object.fromEntries( formData );
-        if ( password!==repeatPassword )
+        const { username, email, password, img, passwordRepeat }=
+                Object.fromEntries( formData );
+
+        if ( password!==passwordRepeat )
         {
-                return "Please confirm the password correctly";
+                return { error: "Passwords do not match" };
         }
 
         try
         {
-                await connectToDB();
-                const existingUser=await UserModel.findOne( { email } );
-                if ( !existingUser )
+                connectToDB();
+
+                const user=await UserModel.findOne( { username } );
+
+                if ( user )
                 {
-                        const salt=bcrypt.genSalt( 10 );
-                        const hashPass=await bcrypt.hash( password, salt );
-                        const newUser=new UserModel( { username, password: hashPass, email } );
-                        await newUser.save();
-                        return "User registered successfully";
-                } else
-                {
-                        return "User already exists";
+                        return { error: "Username already exists" };
                 }
+
+                const salt=await bcrypt.genSalt( 10 );
+                const hashedPassword=await bcrypt.hash( password, salt );
+
+                const newUser=new UserModel( {
+                        username,
+                        email,
+                        password: hashedPassword,
+                        img,
+                } );
+
+                await newUser.save();
+                console.log( "saved to db" );
+
+                return { success: true };
         } catch ( err )
         {
                 console.log( err );
-                return "Something went wrong";
+                return { error: "Something went wrong!"+err };
         }
 };
-
-export const login=async ( formData ) =>
+export const login=async ( previousState, formData ) =>
 {
-        const { username, password }=Object.Entries( formData );
+        const { username, password }=Object.fromEntries( formData );
+
         try
         {
-                signIn( 'credentials', {
-                        username, password
-                } )
-        }
-        catch ( err )
+                await signIn( "credentials", { username, password } );
+        } catch ( err )
         {
-                return { error: "Something Went Wrong" };
+                console.log( err );
+
+                if ( err.message.includes( "CredentialsSignin" ) )
+                {
+                        return { error: "Invalid username or password" };
+                }
+                throw err;
         }
-}
+};

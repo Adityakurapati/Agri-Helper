@@ -1,6 +1,9 @@
+/** @type {import('next').NextConfig} */
 const nextConfig={
         reactStrictMode: true,
-        unstable_runtimeJS: false,
+        experimental: {
+                serverActions: true,
+        },
 };
 
 export default nextConfig;
