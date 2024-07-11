@@ -94,3 +94,9 @@ Github -> Developer Settings -> Oauth Apps => register
 NExtAuth Handle all= Session ,cookies ,tokens
 
 session can be used in server components but useStatte we are using in the Navbar so moving session to server component 
+
+useFormState to manage error handling Display
+
+****************Middlewar ***************
+matcher used to restrict the Middlewae to specific routes not all Routes
+Middlewaee is independant of any node js lib

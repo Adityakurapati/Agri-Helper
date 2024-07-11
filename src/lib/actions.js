@@ -3,6 +3,7 @@ import { PostModel, UserModel } from './model';
 import { connectToDB } from './utils';
 import { signIn, signOut } from './auth';
 import bcrypt from 'bcryptjs';
+import { revalidatePath } from 'next/cache';
 
 export const addPost=async ( formData ) =>
 {
@@ -25,6 +26,19 @@ export const addPost=async ( formData ) =>
         await post.save();
         console.log( "Post Saved Successfully" );
 };
+
+export const deleteUser=async ( formData ) =>
+{
+        const { id }=formData;
+
+        try
+        {
+                connectToDB();
+                await UserModel.deleteOne( { id } );
+                console.log( "USer Got Deleted " )
+                revalidatePath( '/admin' )  //to fetch users after delete 
+        }
+}
 
 export const handleGithubLogin=async () =>
 {
@@ -77,7 +91,8 @@ export const register=async ( previousState, formData ) =>
                 return { error: "Something went wrong!"+err };
         }
 };
-export const login=async ( previousState, formData ) =>
+
+export const login=async ( prevState, formData ) =>
 {
         const { username, password }=Object.fromEntries( formData );
 

@@ -3,8 +3,10 @@ import { handleGithubLogin } from '../../../lib/actions';
 import styles from './login.module.css';
 const LoginPage=async () =>
 {
-        return (
+        // const router=useRouter();
+        // auth?.user&&router.push( '/' )  // better solution than this->nextjs middlewar
 
+        return (
                 <div className={ styles.container }>
                         <div className={ styles.wrapper }>
                                 <LoginForm />
@@ -15,7 +17,7 @@ const LoginPage=async () =>
                                 </div>
                         </div>
                 </div>
-        )
+        );
 }
 
 

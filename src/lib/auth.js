@@ -4,6 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectToDB } from './utils';
 import { UserModel } from './model';
 import bcrypt from 'bcryptjs'
+import { authConfig } from './auth.config.js'
 const login=async ( credentials ) =>
 {
         try
@@ -29,10 +30,11 @@ const login=async ( credentials ) =>
         }
 }
 const options={
+        ...authConfig,
         providers: [
                 GithubProvider( {
-                        clientId: process.env.GITHUB_CLIENT_ID,
-                        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+                        clientId: process.env.GITHUB_ID,
+                        clientSecret: process.env.GITHUB_SECRET,
                 } ),
                 CredentialsProvider( {
                         async authorize ( credentials )
@@ -45,40 +47,38 @@ const options={
                                 {
                                         return null;
                                 }
-                        }
-                } )
+                        },
+                } ),
         ],
         callbacks: {
-                async signIn ( user, account, profile )
+                async signIn ( { user, account, profile } )
                 {
-                        console.log( "CALLBACK INFORMATION:" );
-                        console.log( user, account, profile );
-                        if ( account?.provider=='github' )
+                        if ( account.provider==="github" )
                         {
-                                connectToDB();
+                                connectToDb();
                                 try
                                 {
-                                        const user=UserModel.findOne( { email: profile.email } );
+                                        const user=await User.findOne( { email: profile.email } );
+
                                         if ( !user )
                                         {
-                                                const newUser=new UserModel( {
-                                                        username: profile.login
-                                                        , email: profile.email,
+                                                const newUser=new User( {
+                                                        username: profile.login,
+                                                        email: profile.email,
                                                         image: profile.avatar_url,
-
                                                 } );
+
                                                 await newUser.save();
                                         }
                                 } catch ( err )
                                 {
                                         console.log( err );
-
                                         return false;
                                 }
                         }
                         return true;
-                }
+                },
+                ...authConfig.callbacks,
         }
 };
-
 export const { handlers: { GET, POST }, auth, signIn, signOut }=NextAuth( options );

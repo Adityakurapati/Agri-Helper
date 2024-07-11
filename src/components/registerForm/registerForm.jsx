@@ -1,6 +1,6 @@
 "use client";
 
-import { register } from "../../lib/actions";
+import { register } from "../../lib/actions     ";
 import styles from "./registerForm.module.css";
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
