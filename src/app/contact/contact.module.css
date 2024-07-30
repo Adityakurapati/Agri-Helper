@@ -1,57 +1,103 @@
 .container {
+        min-height: 100vh;
         display: flex;
-        gap: 1.2rem;
-}
-
-.imgContainer {
-        flex: 1;
-        position: relative;
-
-}
-
-.img {
-        object-fit: content;
-
+        justify-content: center;
+        align-items: center;
+        background-image: url('/river_contact.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        padding: 2rem;
 }
 
 .formContainer {
-        flex: 1;
+        /* background-color: rgba(0, 0, 0, 0.7); */
+        background-color: #001114;
+        border-radius: 10px;
+        padding: 2rem;
+        width: 764px;
+        /* max-width: 500px; */
+        animation: fadeIn 1s ease-out;
+}
+
+.formTitle {
+        color: #ffffff;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
 }
 
 .contactForm {
         display: flex;
         flex-direction: column;
-        gap: 1.4rem;
+        gap: 1.5rem;
 }
 
-.contactForm input,
-.contactForm textarea {
-        padding: .8rem;
+.inputGroup {
+        display: flex;
+        gap: 1rem;
+}
+
+.inputGroup>div {
+        flex: 1;
+}
+
+.formLabel {
+        display: block;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+}
+
+.formInput,
+.formTextarea {
+        width: 100%;
+        padding: 0.8rem;
         border-radius: 5px;
         border: none;
+        background-color: #013D3B;
+        color: #ffffff;
+        transition: all 0.3s ease;
+}
+
+.formInput::placeholder,
+.formTextarea::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+}
+
+.formInput:focus,
+.formTextarea:focus {
         outline: none;
-        background-color: var(--bg-soft);
-        color: var(--text)
+        box-shadow: 0 0 0 2px #e9c46a;
 }
 
-.contactForm button {
-        padding: 20px;
-        background-color: var(--btn);
-        border-radius: 5px;
+.submitButton {
+        padding: 1rem;
+        background-color: #e9c46a;
         border: none;
+        border-radius: 5px;
+        color: #264653;
+        font-weight: bold;
         cursor: pointer;
-        color: var(--text);
-        font-weight: 800;
+        transition: all 0.3s ease;
 }
 
-@media screen and (max-width:768px) {
-        .container {
-                flex-direction: column;
+.submitButton:hover {
+        background-color: #f4a261;
+        transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+        from {
+                opacity: 0;
         }
 
-        .boxes {
+        to {
+                opacity: 1;
+        }
+}
+
+@media screen and (max-width: 768px) {
+        .inputGroup {
                 flex-direction: column;
-                gap: 50px;
-                text-align: center;
         }
 }

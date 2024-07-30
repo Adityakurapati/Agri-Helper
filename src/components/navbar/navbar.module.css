@@ -1,10 +1,27 @@
 .container {
-        height: 100px;
+        height: 75px;
         display: flex;
         justify-content: space-between;
-        padding: auto .8rem;
+        padding: auto 1.2rem;
         align-items: center;
-        background-color: var(--bg);
+        background-color: #011414;
+        transition: background-color 0.3s ease;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        color: white;
+        font-weight: bold;
+}
+
+.transparent {
+        background-color: transparent;
+}
+
+.hidden {
+        display: none;
 }
 
 .container>p {

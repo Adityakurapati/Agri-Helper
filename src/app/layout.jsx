@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import { getServerSession } from '../lib/ServerNavbar';
 
 const inter=Inter( { subsets: [ "latin" ] } );
 
@@ -13,16 +14,17 @@ export const metadata={
         description: "Just Next",
 };
 
-export default function RootLayout ( { children } )
+export default async function RootLayout ( { children } )
 {
+        const session=await getServerSession();
         return (
                 <html lang="en">
 
                         <body className={ inter.className }>
                                 <div className="container">
-                                        <Navbar />
+                                        <Navbar session={ session } />
                                         { children }
-                                        <Footer />
+                                        {/* <Footer /> */ }
                                 </div>
                         </body>
                 </html>

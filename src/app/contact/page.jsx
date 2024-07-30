@@ -1,40 +1,40 @@
-// import dynamic from 'next/dynamic';
 import styles from './contact.module.css';
-import Image from 'next/image';
-
-// Dynamically import the HydrationTest component
-// const HydrationTestNOSSR=dynamic( () => import( '../../components/hydrationTest' ), { ssr: true } );
 
 export const metadata={
-        title: "Contact Page",
-        description: "Contact Description"
+        title: "Let's Start With You",
+        description: "Contact Us"
 };
 
 const ContactPage=() =>
 {
-        // const a=Math.random();
-
         return (
-                <section className={ styles.container }>
-                        <article className={ styles.imgContainer }>
-                                <Image src='/contact.png' alt='about' fill className={ styles.img } />
-                        </article>
-                        <article className={ styles.formContainer }>
+                <div className={ styles.container }>
+                        <div className={ styles.formContainer }>
+                                <h2 className={ styles.formTitle }>Let's Start With You</h2>
                                 <form className={ styles.contactForm }>
-                                        <input type='text' placeholder='Name And Surname' required />
-                                        <input type='email' placeholder='Email' required />
-                                        <input type='tel' placeholder='Phone Number' />
-                                        <textarea rows={ 10 } cols={ 30 } placeholder='Message'></textarea>
-                                        <button type='submit'>Send</button>
+                                        <div className={ styles.inputGroup }>
+                                                <div>
+                                                        <label htmlFor="name" className={ styles.formLabel }>Your Name</label>
+                                                        <input type='text' id="name" className={ styles.formInput } placeholder='Username' required />
+                                                </div>
+                                                <div>
+                                                        <label htmlFor="address" className={ styles.formLabel }>Address</label>
+                                                        <input type='text' id="address" className={ styles.formInput } placeholder='Your City / State' required />
+                                                </div>
+                                        </div>
+                                        <div>
+                                                <label htmlFor="email" className={ styles.formLabel }>Email Id</label>
+                                                <input type='email' id="email" className={ styles.formInput } placeholder='abc@gmail.com' required />
+                                        </div>
+                                        <div>
+                                                <label htmlFor="message" className={ styles.formLabel }>Raise Your Hand</label>
+                                                <textarea id="message" className={ styles.formTextarea } rows={ 4 } placeholder='Your Thought'></textarea>
+                                        </div>
+                                        <button type='submit' className={ styles.submitButton }>Send</button>
                                 </form>
-                        </article>
-                </section>
+                        </div>
+                </div>
         );
 }
-
-// <HydrationTestNOSSR />
-// <div suppressHydrationWarning>
-// { a }
-// </div>
 
 export default ContactPage;

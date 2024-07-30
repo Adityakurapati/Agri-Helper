@@ -1,46 +1,148 @@
 .container {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        height: 80vh;
+        background-color: #f5f5f5;
+        margin: 10vh auto;
+        width: 1024px;
+        border-radius: 10px;
 }
 
-.wrapper {
-        width: 500;
-        background: var(--bg-soft);
-        padding: 50px;
+.leftPanel {
+        flex: 1;
         display: flex;
         flex-direction: column;
-        text-align: center;
-        gap: 30px;
-        border-radius: 5px;
+        justify-content: center;
+        padding: 2rem;
+        animation: slideInLeft 0.5s ease-out;
 }
 
+.rightPanel {
+        flex: 1;
+        background-color: #0A3B40;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: slideInRight 0.5s ease-out;
+        border-radius: 0 10px 10px 0;
+}
 
+.title {
+        font-size: 2.5rem;
+        color: #0A3B40;
+        margin-bottom: 2rem;
+}
 
 .form {
         display: flex;
         flex-direction: column;
-        gap: 20px;
-        text-align: center;
+        gap: 1rem;
 }
 
-.form input {
-        background-color: var(--bg);
-        color: var(--text);
-        font-size: 1.2rem;
-        border: none;
-        border-radius: 5px;
-        padding: 20px;
-}
-
-.socials {
+.inputGroup {
         display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
+        flex-direction: column;
+        text-align: left;
 }
 
-.social form {
-        background: var(--bg);
+.inputGroup label {
+        margin-bottom: 0.5rem;
+        color: #0A3B40;
+}
+
+.inputGroup input {
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+}
+
+.forgotPassword {
+        text-align: right;
+        color: #FF5722;
+        text-decoration: none;
+        font-size: 0.9rem;
+}
+
+.buttonGroup {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+}
+
+.loginButton,
+.signinButton {
+        flex: 1;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+}
+
+.loginButton {
+        background-color: #0A3B40;
+        color: white;
+}
+
+.signinButton {
+        background-color: #FF5722;
+        color: white;
+}
+
+.loginButton:hover,
+.signinButton:hover {
+        opacity: 0.9;
+}
+
+.createAccount {
+        margin-top: 1rem;
+        color: #FF5722;
+        text-decoration: none;
+        font-size: 0.9rem;
+}
+
+.rightPanel h2 {
+        font-size: 2rem;
+        margin: 1rem 0;
+}
+
+.rightPanel p {
+        font-size: 1.2rem;
+}
+
+@keyframes slideInLeft {
+        from {
+                transform: translateX(-100%);
+                opacity: 0;
+        }
+
+        to {
+                transform: translateX(0);
+                opacity: 1;
+        }
+}
+
+@keyframes slideInRight {
+        from {
+                transform: translateX(100%);
+                opacity: 0;
+        }
+
+        to {
+                transform: translateX(0);
+                opacity: 1;
+        }
+}
+
+@media (max-width: 768px) {
+        .container {
+                flex-direction: column;
+        }
+
+        .rightPanel {
+                padding: 2rem;
+        }
 }

@@ -12,33 +12,37 @@ export const addPost=async ( formData ) =>
         try
         {
                 await connectToDB();
+                const post=new PostModel( {
+                        title,
+                        desc,
+                        slug,
+                        userId: userid
+                } );
+                await post.save();
+                console.log( "Post Saved Successfully" );
+                revalidatePath( '/posts' ); // Assuming you have a posts page
         } catch ( err )
         {
-                throw new Error( "Error: "+err );
+                console.error( "Error adding post:", err );
+                throw new Error( "Failed to add post: "+err.message );
         }
-
-        const post=new PostModel( {
-                title,
-                desc,
-                slug,
-                userId: userid
-        } );
-        await post.save();
-        console.log( "Post Saved Successfully" );
 };
 
 export const deleteUser=async ( formData ) =>
 {
-        const { id }=formData;
-
+        const { id }=Object.fromEntries( formData );
         try
         {
-                connectToDB();
-                await UserModel.deleteOne( { id } );
-                console.log( "USer Got Deleted " )
-                revalidatePath( '/admin' )  //to fetch users after delete 
+                await connectToDB();
+                await UserModel.findByIdAndDelete( id );
+                console.log( "User Deleted Successfully" );
+                revalidatePath( '/admin' );
+        } catch ( err )
+        {
+                console.error( "Error deleting user:", err );
+                throw new Error( "Failed to delete user: "+err.message );
         }
-}
+};
 
 export const handleGithubLogin=async () =>
 {
@@ -52,8 +56,7 @@ export const handleGithubSignout=async () =>
 
 export const register=async ( previousState, formData ) =>
 {
-        const { username, email, password, img, passwordRepeat }=
-                Object.fromEntries( formData );
+        const { username, email, password, img, passwordRepeat }=Object.fromEntries( formData );
 
         if ( password!==passwordRepeat )
         {
@@ -62,11 +65,10 @@ export const register=async ( previousState, formData ) =>
 
         try
         {
-                connectToDB();
+                await connectToDB();
+                const existingUser=await UserModel.findOne( { username } );
 
-                const user=await UserModel.findOne( { username } );
-
-                if ( user )
+                if ( existingUser )
                 {
                         return { error: "Username already exists" };
                 }
@@ -82,13 +84,12 @@ export const register=async ( previousState, formData ) =>
                 } );
 
                 await newUser.save();
-                console.log( "saved to db" );
-
+                console.log( "User registered successfully" );
                 return { success: true };
         } catch ( err )
         {
-                console.log( err );
-                return { error: "Something went wrong!"+err };
+                console.error( "Error registering user:", err );
+                return { error: "Registration failed: "+err.message };
         }
 };
 
@@ -99,14 +100,14 @@ export const login=async ( prevState, formData ) =>
         try
         {
                 await signIn( "credentials", { username, password } );
+                return { success: true };
         } catch ( err )
         {
-                console.log( err );
-
+                console.error( "Login error:", err );
                 if ( err.message.includes( "CredentialsSignin" ) )
                 {
                         return { error: "Invalid username or password" };
                 }
-                throw err;
+                return { error: "Login failed: "+err.message };
         }
 };
