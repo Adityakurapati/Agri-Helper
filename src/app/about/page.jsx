@@ -22,7 +22,7 @@ const AboutPage=() =>
                         <h1 className={ styles.title }>Our Information</h1>
                         <div className={ styles.content }>
                                 <div className={ styles.imageContainer }>
-                                        <Image src='/about/farm-tractor.png' alt='Farm Tractor' fill className={ styles.image } />
+                                        <Image src='/about/farm-tractor.png' alt='Farm Tractor' fill className={ styles.img } />
                                         <div className={ styles.imageCaption }>
                                                 <span>100+</span>
                                                 <p>Farmers Registered</p>
